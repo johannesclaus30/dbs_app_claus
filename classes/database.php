@@ -1,10 +1,9 @@
 <?php
-
 class database{
     function opencon(): PDO{
         return new PDO(
             'mysql:host=localhost;
-            dbname=dbs_app',
+            dbname=dbs_app_db',
             username: 'root',
             password: '');
     }
@@ -26,6 +25,12 @@ class database{
             $con->rollBack();
             return false;
         }
+    } public function isUsernameExists($username) {
+        $con = $this->opencon();
+        $stmt = $con->prepare("SELECT COUNT(*) FROM Admin WHERE admin_username = ?");
+        $stmt->execute([$username]);
+        $count = $stmt->fetchColumn();
+        return $count > 0;       
     }
 }
 ?>
