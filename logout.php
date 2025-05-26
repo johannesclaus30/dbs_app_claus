@@ -1,8 +1,15 @@
 <?php
     session_start();
     session_unset();
-    session_destroy();
-    header('Location: login.php');
-    exit();
 
+    if(isset($_SESSION['admin_ID'])) {
+        header('Location: index.php');
+        exit();
+      } else {
+        session_destroy();
+        header('Location: login.php');
+      }
+
+    
+    exit();
 ?>
